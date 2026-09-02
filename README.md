@@ -33,15 +33,21 @@ export default function App() {
       {/* mount once, anywhere — every icon on the page shares it */}
       <BoilFilter id="boil" />
 
+      {/* wiggles forever */}
       <DoodleIcon name="heart" boilId="boil" size={32} />
-      <DoodleIcon name="star" boilId="boil" size={32} color="#f5a623" />
 
-      {/* leave off boilId and the icon holds still */}
+      {/* draws itself on, then wiggles forever */}
+      <DoodleIcon name="star" boilId="boil" draw size={32} />
+
+      {/* leave both off and the icon holds still */}
       <DoodleIcon name="check" size={32} />
     </>
   )
 }
 ```
+
+Both effects are opt-in. An icon that wiggled by default would be a menace
+inside a form, so nothing moves until you ask it to.
 
 Strokes are `currentColor`, so colour comes from CSS like any other text:
 
@@ -60,6 +66,9 @@ Strokes are `currentColor`, so colour comes from CSS like any other text:
 | `size` | `24` | px, both axes |
 | `strokeWidth` | `3.4` | the set is drawn for a chunky stroke |
 | `boilId` | — | id of a mounted `<BoilFilter>`; omit to hold still |
+| `draw` | `false` | draw the strokes on, one after another, on first render |
+| `drawDuration` | `0.32` | seconds per stroke |
+| `drawDelay` | `0` | seconds before the first stroke starts — stagger a row with it |
 
 Anything else is forwarded to the `<svg>`.
 
@@ -68,10 +77,24 @@ Anything else is forwarded to the `<svg>`.
 | Prop | Default | |
 | --- | --- | --- |
 | `id` | `"doodle-boil"` | referenced by `boilId` |
-| `amplitude` | `1.6` | how far the ink wanders, in viewBox units |
-| `duration` | `"0.55s"` | one full cycle of the wobble |
+| `amplitude` | `1.6` | how far the ink wanders, in viewBox units. `0.8` is a shiver, `3` is a mess |
+| `duration` | `"0.55s"` | one full cycle — lower is more frantic |
+| `frequency` | `0.055` | grain of the noise; higher is a finer, more jittery hand |
+| `frames` | `6` | how many hand-drawn frames the loop pretends to have |
 
-One filter serves the whole page — 200 boiling icons cost the same as one.
+One filter serves the whole page — 200 boiling icons cost about what one does.
+
+Mount it more than once for more than one intensity:
+
+```jsx
+<BoilFilter id="boil" />
+<BoilFilter id="boil-loud" amplitude={3.2} duration="0.3s" />
+
+<DoodleIcon name="flame" boilId="boil-loud" />
+```
+
+`<BoilFilter>` also registers the keyframes `draw` needs. If you want the
+entrance without the wiggle, mount `<DoodleStyles />` on its own instead.
 
 ## The boil
 
@@ -80,7 +103,9 @@ The wiggle is not a video and not a sprite sheet. It is one SVG filter:
 it, and a six-frame `<animate>` steps the noise seed on a loop.
 
 Six discrete steps, not a smooth tween — the ink should *jump* between
-drawings the way hand-inked animation does, rather than slide.
+drawings the way hand-inked animation does, rather than slide. Animators call
+this a **boiling line**: hand-redrawn frames never land in quite the same
+place, so the outline simmers even when nothing is moving.
 
 Because the filter works on rasterized pixels, it costs the same whether the
 icon has one path or twenty.
