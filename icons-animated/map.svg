@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 48 48">
+  <style>
+    path {
+      fill: none; stroke: #2b2a33; stroke-width: 3.4;
+      stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 1; stroke-dashoffset: 1; visibility: hidden;
+      animation-name: draw; animation-timing-function: cubic-bezier(.65,.05,.36,1);
+      animation-fill-mode: forwards;
+    }
+    @keyframes draw {
+      from { visibility: visible }
+      to { visibility: visible; stroke-dashoffset: 0 }
+    }
+  </style>
+  <filter id="boil" x="-30%" y="-30%" width="160%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="2" seed="1" result="noise">
+      <animate attributeName="seed" values="1;2;3;4;5;6" dur="0.55s" repeatCount="indefinite" calcMode="discrete"/>
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <g filter="url(#boil)">
+    <rect width="48" height="48" fill="none"/>
+    <path pathLength="1" style="animation-duration:0.70s;animation-delay:0.00s" d="M 8 12.5 C 12.5 10.8, 17 9.9, 21.5 10.6 C 24.5 11.1, 27.5 12.4, 30.5 12.7 C 33.6 13, 36.8 12.2, 40 11 C 40.6 18.6, 40.5 26.4, 40 34 C 36.7 35.3, 33.4 36.1, 30.2 35.8 C 27.2 35.5, 24.2 34.1, 21.2 33.7 C 16.9 33.1, 12.5 34.2, 8.2 35.8 C 7.6 28, 7.6 20.2, 8 12.5 Z"/>
+    <path pathLength="1" style="animation-duration:0.17s;animation-delay:0.49s" d="M 20.7 10.9 C 21 18.4, 21 26, 20.9 33.4"/>
+    <path pathLength="1" style="animation-duration:0.17s;animation-delay:0.61s" d="M 30.4 12.9 C 30.5 20.4, 30.4 28, 30.3 35.4"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:0.73s" d="M 33.3 17.8 C 34.5 19.2, 35.6 20.5, 36.6 21.9"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:0.84s" d="M 36.8 17.5 C 35.5 18.9, 34.3 20.4, 33.2 21.9"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:0.94s" d="M 12 27.5 l .01 0"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:1.05s" d="M 15.5 24 l .01 0"/>
+  </g>
+</svg>

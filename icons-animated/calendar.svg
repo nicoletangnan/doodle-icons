@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 48 48">
+  <style>
+    path {
+      fill: none; stroke: #2b2a33; stroke-width: 3.4;
+      stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 1; stroke-dashoffset: 1; visibility: hidden;
+      animation-name: draw; animation-timing-function: cubic-bezier(.65,.05,.36,1);
+      animation-fill-mode: forwards;
+    }
+    @keyframes draw {
+      from { visibility: visible }
+      to { visibility: visible; stroke-dashoffset: 0 }
+    }
+  </style>
+  <filter id="boil" x="-30%" y="-30%" width="160%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="2" seed="1" result="noise">
+      <animate attributeName="seed" values="1;2;3;4;5;6" dur="0.55s" repeatCount="indefinite" calcMode="discrete"/>
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <g filter="url(#boil)">
+    <rect width="48" height="48" fill="none"/>
+    <path pathLength="1" style="animation-duration:0.70s;animation-delay:0.00s" d="M 9.5 14 C 19.2 13.2, 28.9 13.3, 38.5 14 C 39.3 20.9, 39.2 28.1, 38.5 34.9 C 28.9 35.8, 19.2 35.7, 9.6 34.9 C 8.9 28, 8.9 20.8, 9.5 14 Z"/>
+    <path pathLength="1" style="animation-duration:0.22s;animation-delay:0.49s" d="M 9.8 20.5 C 19.4 21.1, 29 21, 38.2 20.4"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:0.64s" d="M 15.5 10.6 C 15.6 12, 15.6 13.4, 15.5 14.8"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:0.75s" d="M 21.2 10.4 C 21.3 11.8, 21.3 13.2, 21.2 14.6"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:0.85s" d="M 26.8 10.4 C 26.9 11.8, 26.9 13.2, 26.8 14.6"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:0.96s" d="M 32.4 10.6 C 32.5 12, 32.5 13.4, 32.4 14.8"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:1.06s" d="M 15 26 l .01 0"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:1.17s" d="M 21 26.3 l .01 0"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:1.27s" d="M 27 26.2 l .01 0"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:1.38s" d="M 33 26 l .01 0"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:1.48s" d="M 15 30.8 l .01 0"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:1.59s" d="M 21 31 l .01 0"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:1.69s" d="M 27 30.9 l .01 0"/>
+  </g>
+</svg>

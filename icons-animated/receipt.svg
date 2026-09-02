@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 48 48">
+  <style>
+    path {
+      fill: none; stroke: #2b2a33; stroke-width: 3.4;
+      stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 1; stroke-dashoffset: 1; visibility: hidden;
+      animation-name: draw; animation-timing-function: cubic-bezier(.65,.05,.36,1);
+      animation-fill-mode: forwards;
+    }
+    @keyframes draw {
+      from { visibility: visible }
+      to { visibility: visible; stroke-dashoffset: 0 }
+    }
+  </style>
+  <filter id="boil" x="-30%" y="-30%" width="160%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="2" seed="1" result="noise">
+      <animate attributeName="seed" values="1;2;3;4;5;6" dur="0.55s" repeatCount="indefinite" calcMode="discrete"/>
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <g filter="url(#boil)">
+    <rect width="48" height="48" fill="none"/>
+    <path pathLength="1" style="animation-duration:0.70s;animation-delay:0.00s" d="M 12.5 9.5 C 20.1 9, 27.8 9, 35.4 9.6 C 35.9 19.4, 35.9 29.2, 35.5 39 C 33.6 37.8, 31.7 37.7, 29.8 38.8 C 27.9 39.8, 26 39.8, 24.1 38.8 C 22.2 37.7, 20.3 37.7, 18.4 38.8 C 16.5 39.8, 14.6 39.8, 12.8 38.9 C 12.3 29.1, 12.2 19.3, 12.5 9.5 Z"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:0.49s" d="M 18 16.5 C 22 16.2, 26 16.2, 30 16.5"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:0.59s" d="M 18 22.5 C 22 22.2, 26 22.2, 30 22.5"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:0.70s" d="M 18 28.5 C 20.7 28.2, 23.4 28.2, 26 28.5"/>
+  </g>
+</svg>

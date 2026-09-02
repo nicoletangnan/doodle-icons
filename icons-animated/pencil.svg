@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 48 48">
+  <style>
+    path {
+      fill: none; stroke: #2b2a33; stroke-width: 3.4;
+      stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 1; stroke-dashoffset: 1; visibility: hidden;
+      animation-name: draw; animation-timing-function: cubic-bezier(.65,.05,.36,1);
+      animation-fill-mode: forwards;
+    }
+    @keyframes draw {
+      from { visibility: visible }
+      to { visibility: visible; stroke-dashoffset: 0 }
+    }
+  </style>
+  <filter id="boil" x="-30%" y="-30%" width="160%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="2" seed="1" result="noise">
+      <animate attributeName="seed" values="1;2;3;4;5;6" dur="0.55s" repeatCount="indefinite" calcMode="discrete"/>
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <g filter="url(#boil)">
+    <rect width="48" height="48" fill="none"/>
+    <path pathLength="1" style="animation-duration:0.62s;animation-delay:0.00s" d="M 10.5 37.8 C 11.5 34.6, 12.6 31.7, 14 29 C 20 22, 26.3 15.4, 33 9.4 C 34.8 10.9, 36.6 12.6, 38.2 14.5 C 32.6 21, 26.4 27.4, 19.8 33.6 C 16.8 35.3, 13.7 36.7, 10.5 37.8 Z"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:0.44s" d="M 29.2 13.2 C 31 14.7, 32.7 16.3, 34.3 18.1"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:0.54s" d="M 12.2 34.2 C 12.9 35, 13.6 35.7, 14.4 36.4"/>
+  </g>
+</svg>

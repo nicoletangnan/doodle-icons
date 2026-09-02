@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 48 48">
+  <style>
+    path {
+      fill: none; stroke: #2b2a33; stroke-width: 3.4;
+      stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 1; stroke-dashoffset: 1; visibility: hidden;
+      animation-name: draw; animation-timing-function: cubic-bezier(.65,.05,.36,1);
+      animation-fill-mode: forwards;
+    }
+    @keyframes draw {
+      from { visibility: visible }
+      to { visibility: visible; stroke-dashoffset: 0 }
+    }
+  </style>
+  <filter id="boil" x="-30%" y="-30%" width="160%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="2" seed="1" result="noise">
+      <animate attributeName="seed" values="1;2;3;4;5;6" dur="0.55s" repeatCount="indefinite" calcMode="discrete"/>
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <g filter="url(#boil)">
+    <rect width="48" height="48" fill="none"/>
+    <path pathLength="1" style="animation-duration:0.70s;animation-delay:0.00s" d="M 24.2 8.5 L 28.8 9.8 L 28.3 14.0 L 31.4 15.7 L 35.5 14.3 L 37.3 16.7 L 34.7 20.2 L 34.9 23.6 L 39.3 25.3 L 38.7 29.4 L 34.2 29.2 L 32.1 31.6 L 34.1 35.7 L 31.5 38.4 L 27.9 35.4 L 24.8 35.9 L 23.5 40.5 L 19.8 39.8 L 20.0 34.4 L 16.2 32.8 L 12.5 34.4 L 10.0 32.3 L 13.4 28.7 L 12.7 25.7 L 8.7 24.0 L 8.9 20.0 L 13.2 19.8 L 16.0 16.8 L 13.2 13.2 L 16.4 10.4 L 19.9 14.5 L 23.3 13.6 Z"/>
+    <path pathLength="1" style="animation-duration:0.24s;animation-delay:0.49s" d="M 24 19.6 C 27.1 19.5, 29.1 21.5, 29 24.6 C 28.9 27.6, 26.9 29.5, 24 29.4 C 21.1 29.3, 19.2 27.4, 19.2 24.5 C 19.2 21.6, 21.2 19.7, 24 19.6 Z"/>
+  </g>
+</svg>

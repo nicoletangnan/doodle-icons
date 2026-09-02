@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 48 48">
+  <style>
+    path {
+      fill: none; stroke: #2b2a33; stroke-width: 3.4;
+      stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 1; stroke-dashoffset: 1; visibility: hidden;
+      animation-name: draw; animation-timing-function: cubic-bezier(.65,.05,.36,1);
+      animation-fill-mode: forwards;
+    }
+    @keyframes draw {
+      from { visibility: visible }
+      to { visibility: visible; stroke-dashoffset: 0 }
+    }
+  </style>
+  <filter id="boil" x="-30%" y="-30%" width="160%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="2" seed="1" result="noise">
+      <animate attributeName="seed" values="1;2;3;4;5;6" dur="0.55s" repeatCount="indefinite" calcMode="discrete"/>
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <g filter="url(#boil)">
+    <rect width="48" height="48" fill="none"/>
+    <path pathLength="1" style="animation-duration:0.69s;animation-delay:0.00s" d="M 18.5 12 C 16.2 12.1, 13.9 12.3, 11.9 12.7 C 11.3 21.5, 11.3 30.4, 12 38.9 C 20 39.7, 28 39.7, 36 38.9 C 36.7 30.4, 36.7 21.5, 36.1 12.7 C 34.1 12.3, 31.8 12.1, 29.5 12"/>
+    <path pathLength="1" style="animation-duration:0.20s;animation-delay:0.48s" d="M 19 13.5 C 19 10.6, 21 8.8, 24 8.8 C 27 8.8, 29 10.5, 29 13.4 C 25.7 13.9, 22.3 13.9, 19 13.5 Z"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:0.62s" d="M 17.6 22 C 17.56 21.55, 17.9 21.32, 18.28 21.44 C 18.7 21.56, 18.77 22.08, 18.5 22.38 C 18.2 22.68, 17.68 22.45, 17.6 22 Z"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:0.73s" d="M 23 22 C 25.6 21.8, 28.3 21.8, 31 22"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:0.83s" d="M 17.6 29 C 17.56 28.55, 17.9 28.32, 18.28 28.44 C 18.7 28.56, 18.77 29.08, 18.5 29.38 C 18.2 29.68, 17.68 29.45, 17.6 29 Z"/>
+    <path pathLength="1" style="animation-duration:0.15s;animation-delay:0.94s" d="M 23 29 C 25.6 28.8, 28.3 28.8, 31 29"/>
+  </g>
+</svg>

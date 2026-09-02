@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 48 48">
+  <style>
+    path {
+      fill: none; stroke: #2b2a33; stroke-width: 3.4;
+      stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 1; stroke-dashoffset: 1; visibility: hidden;
+      animation-name: draw; animation-timing-function: cubic-bezier(.65,.05,.36,1);
+      animation-fill-mode: forwards;
+    }
+    @keyframes draw {
+      from { visibility: visible }
+      to { visibility: visible; stroke-dashoffset: 0 }
+    }
+  </style>
+  <filter id="boil" x="-30%" y="-30%" width="160%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="2" seed="1" result="noise">
+      <animate attributeName="seed" values="1;2;3;4;5;6" dur="0.55s" repeatCount="indefinite" calcMode="discrete"/>
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <g filter="url(#boil)">
+    <rect width="48" height="48" fill="none"/>
+    <path pathLength="1" style="animation-duration:0.62s;animation-delay:0.00s" d="M 8 24 C 12 17, 17.5 13.2, 24 13.2 C 30.5 13.2, 36 17, 40 24 C 36 31, 30.5 34.8, 24 34.8 C 17.5 34.8, 12 31, 8 24 Z"/>
+    <path pathLength="1" style="animation-duration:0.24s;animation-delay:0.44s" d="M 24 19.6 C 27.1 19.5, 29.1 21.5, 29 24.6 C 28.9 27.6, 26.9 29.5, 24 29.4 C 21.1 29.3, 19.2 27.4, 19.2 24.5 C 19.2 21.6, 21.2 19.7, 24 19.6 Z"/>
+  </g>
+</svg>
