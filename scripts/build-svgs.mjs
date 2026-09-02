@@ -9,6 +9,7 @@
 import { mkdirSync, writeFileSync, rmSync } from 'node:fs'
 import { svgPathProperties } from 'svg-path-properties'
 import { ICONS } from '../src/icons.ts'
+import { BOIL, STROKE, INK } from '../src/boil.ts'
 
 const OUT_STILL = new URL('../icons/', import.meta.url)
 const OUT_ANIM = new URL('../icons-animated/', import.meta.url)
@@ -17,12 +18,12 @@ for (const dir of [OUT_STILL, OUT_ANIM]) {
   mkdirSync(dir, { recursive: true })
 }
 
-const STROKE = 3.4
-
-const still = (icon) => `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="${STROKE}" stroke-linecap="round" stroke-linejoin="round">
+const still = (icon) => `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="${STROKE.width}" stroke-linecap="round" stroke-linejoin="round">
 ${icon.paths.map((d) => `  <path d="${d}"/>`).join('\n')}
 </svg>
 `
+
+const seeds = Array.from({ length: BOIL.frames }, (_, i) => i + 1).join(';')
 
 function animated(icon) {
   let delay = 0
@@ -38,22 +39,25 @@ function animated(icon) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 48 48">
   <style>
     path {
-      fill: none; stroke: #2b2a33; stroke-width: ${STROKE};
+      fill: none; stroke: ${INK}; stroke-width: ${STROKE.width};
       stroke-linecap: round; stroke-linejoin: round;
-      stroke-dasharray: 1; stroke-dashoffset: 1; visibility: hidden;
-      animation-name: draw; animation-timing-function: cubic-bezier(.65,.05,.36,1);
-      animation-fill-mode: forwards;
+      animation-name: draw;
+      animation-timing-function: cubic-bezier(.65,.05,.36,1);
+      animation-fill-mode: backwards;
     }
+    /* drawn is the resting state; the animation hides the ink and puts it
+       back, so a still render shows the finished icon, not nothing */
     @keyframes draw {
-      from { visibility: visible }
-      to { visibility: visible; stroke-dashoffset: 0 }
+      from { stroke-dasharray: 1; stroke-dashoffset: 1 }
+      to { stroke-dasharray: 1; stroke-dashoffset: 0 }
     }
+    @media (prefers-reduced-motion: reduce) { path { animation: none } }
   </style>
   <filter id="boil" x="-30%" y="-30%" width="160%" height="160%">
-    <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="2" seed="1" result="noise">
-      <animate attributeName="seed" values="1;2;3;4;5;6" dur="0.55s" repeatCount="indefinite" calcMode="discrete"/>
+    <feTurbulence type="fractalNoise" baseFrequency="${BOIL.frequency}" numOctaves="${BOIL.octaves}" seed="1" result="noise">
+      <animate attributeName="seed" values="${seeds}" dur="${BOIL.duration}" repeatCount="indefinite" calcMode="discrete"/>
     </feTurbulence>
-    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="${BOIL.amplitude}" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
   <g filter="url(#boil)">
     <rect width="48" height="48" fill="none"/>

@@ -77,10 +77,14 @@ Anything else is forwarded to the `<svg>`.
 | Prop | Default | |
 | --- | --- | --- |
 | `id` | `"doodle-boil"` | referenced by `boilId` |
-| `amplitude` | `1.6` | how far the ink wanders, in viewBox units. `0.8` is a shiver, `3` is a mess |
-| `duration` | `"0.55s"` | one full cycle — lower is more frantic |
+| `amplitude` | `4` | how far the ink wanders, in viewBox units. `1` is a shiver, `8` is a mess |
+| `duration` | `"0.86s"` | one full cycle — lower is more frantic |
 | `frequency` | `0.055` | grain of the noise; higher is a finer, more jittery hand |
 | `frames` | `6` | how many hand-drawn frames the loop pretends to have |
+
+The defaults are the values [oreoui.com/doodle-icons](https://oreoui.com/doodle-icons)
+runs at, so what you install feels like what you played with. They are also
+exported as `BOIL` if you want to build on them.
 
 One filter serves the whole page — 200 boiling icons cost about what one does.
 
@@ -88,7 +92,7 @@ Mount it more than once for more than one intensity:
 
 ```jsx
 <BoilFilter id="boil" />
-<BoilFilter id="boil-loud" amplitude={3.2} duration="0.3s" />
+<BoilFilter id="boil-loud" amplitude={8} duration="0.3s" />
 
 <DoodleIcon name="flame" boilId="boil-loud" />
 ```

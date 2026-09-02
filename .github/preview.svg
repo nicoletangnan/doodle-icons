@@ -1,23 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1238" height="556" viewBox="0 0 1238 556">
   <style>
+    /* Drawn is the resting state, and the animation is what hides the ink
+       and puts it back. Anywhere the clock never runs — reduced motion, a
+       proxy that rasterises frame zero — you get the finished sheet rather
+       than an empty box. */
     .ink path {
-      stroke-dasharray: 1; stroke-dashoffset: 1; visibility: hidden;
-      animation-name: draw; animation-timing-function: cubic-bezier(.65,.05,.36,1);
-      animation-fill-mode: forwards;
+      animation-name: draw;
+      animation-timing-function: cubic-bezier(.65,.05,.36,1);
+      animation-fill-mode: backwards;
     }
     @keyframes draw {
-      from { visibility: visible }
-      to { visibility: visible; stroke-dashoffset: 0 }
+      from { stroke-dasharray: 1; stroke-dashoffset: 1 }
+      to { stroke-dasharray: 1; stroke-dashoffset: 0 }
     }
     @media (prefers-reduced-motion: reduce) {
-      .ink path { animation: none; visibility: visible; stroke-dashoffset: 0 }
+      .ink path { animation: none }
     }
   </style>
   <filter id="boil" x="-2%" y="-4%" width="104%" height="108%">
     <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="2" seed="1" result="noise">
-      <animate attributeName="seed" values="1;2;3;4;5;6" dur="0.55s" repeatCount="indefinite" calcMode="discrete"/>
+      <animate attributeName="seed" values="1;2;3;4;5;6" dur="0.86s" repeatCount="indefinite" calcMode="discrete"/>
     </feTurbulence>
-    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.33" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
   <rect width="1238" height="556" rx="10" fill="#F7F6F2"/>
   <g class="ink" filter="url(#boil)" fill="none" stroke="#2b2a33" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">

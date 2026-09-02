@@ -1,4 +1,5 @@
 import type { CSSProperties, SVGProps } from 'react'
+import { STROKE } from './boil'
 import { getIcon, type DoodleIconData } from './icons'
 
 export type DoodleIconProps = Omit<SVGProps<SVGSVGElement>, 'name'> & {
@@ -31,7 +32,7 @@ export function DoodleIcon({
   name,
   icon,
   size = 24,
-  strokeWidth = 3.4,
+  strokeWidth = STROKE.width,
   boilId,
   draw = false,
   drawDuration = 0.32,
@@ -47,16 +48,14 @@ export function DoodleIcon({
   const drawStyle = (i: number): CSSProperties | undefined =>
     draw
       ? {
-          // pathLength normalises every stroke to 1, so the dash maths is the
-          // same whether the path is a dot or the outline of a camera
-          strokeDasharray: 1,
-          strokeDashoffset: 1,
-          visibility: 'hidden',
+          // Drawn is the resting state; the keyframes hide the ink and put it
+          // back. If the animation never runs the icon is simply there, rather
+          // than invisible — `backwards` only covers the delay.
           animationName: 'doodle-draw',
           animationDuration: `${drawDuration}s`,
           animationDelay: `${(drawDelay + i * step).toFixed(3)}s`,
           animationTimingFunction: 'cubic-bezier(.65,.05,.36,1)',
-          animationFillMode: 'forwards',
+          animationFillMode: 'backwards',
         }
       : undefined
 

@@ -11,6 +11,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { svgPathProperties } from 'svg-path-properties'
 import { ICONS } from '../src/icons.ts'
+import { BOIL, STROKE, INK } from '../src/boil.ts'
 
 const COLS = 19
 const CELL = 62
@@ -24,8 +25,12 @@ const offset = (CELL - ICON) / 2
 const scale = (ICON / 48).toFixed(4)
 
 const PAPER = '#F7F6F2'
-const INK = '#2b2a33'
-const STROKE = 3.4
+
+// The filter sits on the whole sheet, so its displacement is in SHEET units
+// while BOIL.amplitude is tuned in a 48-unit icon box. Scale it by the same
+// factor the icons are scaled by, or the sheet boils softer than the site.
+const sheetAmplitude = (BOIL.amplitude * (ICON / 48)).toFixed(2)
+const seeds = Array.from({ length: BOIL.frames }, (_, i) => i + 1).join(';')
 
 /** where icon i sits on the sheet */
 const place = (i) => {
@@ -43,7 +48,7 @@ const stillCells = ICONS.map(
 
 const still = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <rect width="${W}" height="${H}" rx="10" fill="${PAPER}"/>
-  <g fill="none" stroke="${INK}" stroke-width="${STROKE}" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="${INK}" stroke-width="${STROKE.width}" stroke-linecap="round" stroke-linejoin="round">
 ${stillCells}
   </g>
 </svg>
@@ -73,27 +78,31 @@ const animCells = ICONS.map((icon, i) => {
 
 const animated = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <style>
+    /* Drawn is the resting state, and the animation is what hides the ink
+       and puts it back. Anywhere the clock never runs — reduced motion, a
+       proxy that rasterises frame zero — you get the finished sheet rather
+       than an empty box. */
     .ink path {
-      stroke-dasharray: 1; stroke-dashoffset: 1; visibility: hidden;
-      animation-name: draw; animation-timing-function: cubic-bezier(.65,.05,.36,1);
-      animation-fill-mode: forwards;
+      animation-name: draw;
+      animation-timing-function: cubic-bezier(.65,.05,.36,1);
+      animation-fill-mode: backwards;
     }
     @keyframes draw {
-      from { visibility: visible }
-      to { visibility: visible; stroke-dashoffset: 0 }
+      from { stroke-dasharray: 1; stroke-dashoffset: 1 }
+      to { stroke-dasharray: 1; stroke-dashoffset: 0 }
     }
     @media (prefers-reduced-motion: reduce) {
-      .ink path { animation: none; visibility: visible; stroke-dashoffset: 0 }
+      .ink path { animation: none }
     }
   </style>
   <filter id="boil" x="-2%" y="-4%" width="104%" height="108%">
-    <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="2" seed="1" result="noise">
-      <animate attributeName="seed" values="1;2;3;4;5;6" dur="0.55s" repeatCount="indefinite" calcMode="discrete"/>
+    <feTurbulence type="fractalNoise" baseFrequency="${BOIL.frequency}" numOctaves="${BOIL.octaves}" seed="1" result="noise">
+      <animate attributeName="seed" values="${seeds}" dur="${BOIL.duration}" repeatCount="indefinite" calcMode="discrete"/>
     </feTurbulence>
-    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="${sheetAmplitude}" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
   <rect width="${W}" height="${H}" rx="10" fill="${PAPER}"/>
-  <g class="ink" filter="url(#boil)" fill="none" stroke="${INK}" stroke-width="${STROKE}" stroke-linecap="round" stroke-linejoin="round">
+  <g class="ink" filter="url(#boil)" fill="none" stroke="${INK}" stroke-width="${STROKE.width}" stroke-linecap="round" stroke-linejoin="round">
 ${animCells}
   </g>
 </svg>
