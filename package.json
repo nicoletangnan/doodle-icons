@@ -1,5 +1,5 @@
 {
-  "name": "@oreoui/doodle-icons",
+  "name": "oreoui-doodle-icons",
   "version": "0.1.0",
   "description": "152 hand-drawn icons that never sit still — every stroke draws itself, then keeps boiling like a Saturday-morning cartoon.",
   "license": "MIT",
@@ -63,7 +63,6 @@
     "typescript": "^5.9.3"
   },
   "publishConfig": {
-    "access": "public",
     "registry": "https://registry.npmjs.org/"
   }
 }
