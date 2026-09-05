@@ -1,8 +1,8 @@
 # Publishing
 
-The package is `oreoui-doodle-icons` on npm. Unscoped on purpose — a scoped
-name would need an npm organisation to exist first, and publishing should not
-be blocked on that.
+The package is `@oreo-design/doodle-icons` on npm, under the `oreo-design`
+organisation alongside the other Oreo packages. `publishConfig.access` is set
+to `public` so the scoped name publishes openly without an extra flag.
 
 ## Every release
 

@@ -15,7 +15,7 @@ Every stroke draws itself in, then keeps boiling like a Saturday-morning cartoon
 ## Install
 
 ```bash
-npm i oreoui-doodle-icons
+npm i @oreo-design/doodle-icons
 ```
 
 Or skip the package entirely and grab the SVGs — [`icons/`](icons) for still
@@ -25,7 +25,7 @@ wiggle forever. They are plain files. They work anywhere an SVG works.
 ## Use
 
 ```jsx
-import { DoodleIcon, BoilFilter } from 'oreoui-doodle-icons'
+import { DoodleIcon, BoilFilter } from '@oreo-design/doodle-icons'
 
 export default function App() {
   return (
@@ -119,7 +119,7 @@ icon has one path or twenty.
 Every icon is also a file:
 
 ```html
-<img src="node_modules/oreoui-doodle-icons/icons-animated/heart.svg" width="48">
+<img src="node_modules/@oreo-design/doodle-icons/icons-animated/heart.svg" width="48">
 ```
 
 One catch: an SVG loaded through `<img>` is its own little document, so
@@ -129,7 +129,7 @@ Inline the SVG (or use the React component) if you need to recolour it.
 The data is exported too, if you would rather render it yourself:
 
 ```js
-import { ICONS, getIcon, ICON_NAMES, COLLECTIONS } from 'oreoui-doodle-icons'
+import { ICONS, getIcon, ICON_NAMES, COLLECTIONS } from '@oreo-design/doodle-icons'
 
 getIcon('heart')  // { name: 'heart', paths: ['M 24 39 C …'] }
 ```
